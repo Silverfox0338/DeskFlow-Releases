@@ -2,6 +2,13 @@
 
 Every DeskFlow release and what changed. The newest release is at the top.
 
+## v0.5.1
+
+Lower memory use.
+
+- **Studio gives its memory back when you close it.** Before, opening Studio once kept tens of megabytes in use
+  until DeskFlow restarted. Now memory returns to about where it was before you opened Studio.
+
 ## v0.5.0
 
 A redesigned Studio, signed updates, faster editing and pixel-precise placement.
