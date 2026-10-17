@@ -2,6 +2,23 @@
 
 Every DeskFlow release and what changed. The newest release is at the top.
 
+## v0.4.5
+
+Studio's Design page is easier to work in, especially with many items or monitors.
+
+- **Desktop map you can zoom**: scroll on the map to zoom in where you point, or use the − / + buttons,
+  which zoom in on the selected item. Drag empty space to pan; **Fit** (or a double-click) shows
+  everything again.
+- **Bigger map**: the expand button gives the map the whole page width for laying out large or
+  multi-monitor setups. Click it again to bring the style side back.
+- **Clearer map**: small widgets are drawn on top of panels so they're never hidden, labels no longer
+  show through each other, and monitor numbers sit in the corner out of the way.
+- **Theme editor in collapsible sections**: Colours, Glass, Effects, Images & texture, Text and
+  Layout open one at a time. Closed sections show a one-line summary of their settings, so the whole
+  theme fits on screen without scrolling.
+- **More room for each setting**: choice buttons are more compact (Border fits on one line), and the
+  live preview stays in view while you scroll.
+
 ## v0.4.4
 
 Pro theme overhaul. Studio's Layout and Themes pages are now a single **Design** workspace.
