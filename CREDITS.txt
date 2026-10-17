@@ -1,0 +1,29 @@
+DeskFlow
+========
+
+A custom desktop layer for Windows 11.
+
+Created by Silverfox0338.
+Copyright (c) 2026 Silverfox0338.
+
+
+Third-party software and assets
+-------------------------------
+
+.NET, WPF and Windows Forms
+  by Microsoft. Licensed under the MIT License.
+  The .NET Desktop Runtime is installed separately from Microsoft if it isn't already on your PC.
+
+Segoe UI and Segoe Fluent Icons
+  Fonts by Microsoft that ship with Windows. They are not included with DeskFlow.
+
+Inno Setup (used to make this installer)
+  by Jordan Russell and Martijn Laan. https://jrsoftware.org/isinfo.php
+
+
+Trademarks
+----------
+
+DeskFlow is an independent project. It works alongside Wallpaper Engine but is not affiliated
+with or endorsed by Wallpaper Engine or Microsoft. Windows is a trademark of Microsoft
+Corporation. All other trademarks belong to their respective owners.
