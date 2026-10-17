@@ -2,6 +2,45 @@
 
 Every DeskFlow release and what changed. The newest release is at the top.
 
+## v0.5.0
+
+A redesigned Studio, signed updates, faster editing and pixel-precise placement.
+
+- **Studio redesigned as a design workspace**: the Design page now works like a design app.
+  - A big **canvas** of your monitors fills the middle; drag on it and your real desktop follows.
+  - A **toolbar** on top: add panels and widgets, zoom, fit, one button per monitor, the style target,
+    undo/redo, lock and snap.
+  - **Layers** on the left list every panel and widget, with the selected one's position and size.
+  - An **inspector** on the right with three tabs: **Editor** (a fixed live preview above the theme
+    sections), **Smart themes** and **Settings** (grid, guides, peek hotkey, monitor profiles, layout files).
+  - The theme gallery moved to its own **Themes** page in the sidebar, so browsing doesn't crowd the workspace.
+  - Edge-to-edge panes, quiet icon toolbar, underlined tabs and a **status bar** with the selection, zoom, snap
+    and screen size (plus a **?** for canvas shortcuts).
+  - The canvas shows your wallpaper inside each monitor, on a dot grid. Panels and widgets appear as live thumbnails
+    showing what they really look like right now: your icons, the clock's time, the weather, your notes
+    (refreshed every few seconds while you're looking). The selected panel has a corner handle to resize it.
+  - Studio keeps its own clear blue accent, so selections stay visible whatever colour your theme uses.
+- **Signed updates**: every release is now digitally signed, and DeskFlow only installs an update whose
+  signature matches the developer's key. A checksum only catches broken downloads; the signature means
+  even a hijacked download page couldn't push a fake update.
+- **Much faster theme editor**: dragging a slider now updates your whole desktop live and smoothly.
+  Each change only touches what actually changed, so an update takes a few milliseconds instead of
+  freezing Studio for a moment (about 25 times faster on a desktop with photo backgrounds).
+- **Blurred backgrounds stay smooth**: images and textures are only redrawn when they really change.
+- **Snappier gallery**: theme cards are built once and reused, so searching, filtering and switching
+  tabs are instant.
+- **Arrow-key nudging**: with the layout unlocked, click a widget (or a panel's header) and use the
+  arrow keys to move it 1 pixel at a time. **Shift + arrow** jumps to the next grid line when Snap is
+  on, or 10 pixels when it's off. The selected item gets a thicker outline, and a burst of presses
+  undoes in one step.
+- **Nudging in Studio** too: select an item on the Design map and use the same keys.
+- Smoother map panning in Studio.
+- **Smooth scrolling in Studio**: the theme gallery used to stutter while scrolling (about 28 fps
+  with regular hitches). Its live previews are now drawn once and reused, so it scrolls at full speed.
+- **Personal benchmark**: Studio → Performance → **Run benchmark** measures your own setup in about
+  25 seconds (theme update speed, how smoothly each panel and Studio scroll, idle CPU) and saves the
+  results to `benchmark.txt`. Nothing is changed or saved while it runs.
+
 ## v0.4.5
 
 Studio's Design page is easier to work in, especially with many items or monitors.

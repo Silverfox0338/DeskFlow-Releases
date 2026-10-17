@@ -72,16 +72,16 @@ clipboard history and notes.</sub>
 </div>
 
 **DeskFlow Studio**
-- A full editor for your layout: a live map of your monitors, exact positions, grid size and snapping.
-- The map **zooms and pans** (scroll to zoom, drag to pan) and can **expand to the full page**, so
-  even a crowded, multi-monitor layout stays easy to work with.
+- A **design workspace** laid out like a design app: a big live canvas of your monitors in the middle,
+  your panels and widgets as **layers** on the left, and an **inspector** on the right with the theme
+  **Editor**, **Smart themes** and **Settings**. Drag on the canvas and your real desktop moves with it.
+- The canvas **zooms and pans** (scroll to zoom, drag to pan), with a toolbar for zoom, fit and one button
+  per monitor, so even a crowded, multi-monitor layout stays easy to work with.
 - Live grid snapping and **smart guides** that line things up with each other while you drag
   (hold <kbd>Alt</kbd> to place freely, <kbd>Esc</kbd> to cancel), plus **undo/redo** for every layout change.
 - **Monitor profiles**: plug in your second screen and your two-monitor layout comes back by itself.
 - A **peek hotkey** that brings your whole desktop layer above every window, and back again.
 - **Export and import layouts** to move your setup to another PC.
-- **Design workspace**: arrange and style in one place, with the theme gallery, editor and smart
-  themes right next to your layout.
 
 **Themes that are actually yours**
 - **17 built-in themes** in a gallery where every card is a live preview, plus themes generated from
@@ -98,13 +98,13 @@ clipboard history and notes.</sub>
 <div align="center">
 <img src="images/studio-themes.png" width="760" alt="DeskFlow Studio theme gallery with live preview cards" />
 <br/>
-<sub><b>Design → Gallery.</b> Every card is a live preview of the theme. Filter by category, click one to use it,
+<sub><b>Themes.</b> Every card is a live preview of the theme. Filter by category, click one to use it,
 or right-click to edit, export or delete it.</sub>
 <br/><br/>
 <img src="images/studio-editor.png" width="760" alt="DeskFlow Studio theme editor with a live preview" />
 <br/>
-<sub><b>Design → Editor.</b> The desktop map and item list on the left; the theme editor's sections in the middle
-(Colours open, the rest summarised); the live preview on the right.</sub>
+<sub><b>Design.</b> Layers on the left, a live canvas of your desktop in the middle (every panel and widget shown as it really looks), and the inspector on the right:
+a fixed live preview above the theme editor's sections (Colours open, the rest summarised).</sub>
 </div>
 
 **Plays nicely with Windows**
@@ -112,7 +112,8 @@ or right-click to edit, export or delete it.</sub>
 - Works with Wallpaper Engine and survives Explorer restarts.
 - Hides the native desktop icons while it runs and puts them back when it closes.
 - Per-monitor DPI aware, single tray icon, starts with Windows if you want it to.
-- Updates itself: DeskFlow checks for new versions and installs them with one click.
+- Updates itself: DeskFlow checks for new versions and installs them with one click. Every update is
+  **digitally signed**, and DeskFlow refuses to install anything that isn't signed by me.
 
 
 ## Install
@@ -122,7 +123,7 @@ or right-click to edit, export or delete it.</sub>
    If your PC doesn't have the .NET 10 Desktop Runtime yet, the installer downloads it from Microsoft for you.
 3. DeskFlow starts in your system tray (look for the blue tile icon near the clock — it may be under the **^** arrow).
 
-Each release also includes a `.sha256` file if you'd like to verify your download.
+Each release also includes a `.sha256` checksum and a `.sig` signature. DeskFlow checks both before it installs an update.
 
 ## How to use
 
@@ -136,9 +137,11 @@ hidden while it runs (they come back when you exit). **Right-click the tray icon
   corner. Things snap to the grid and line up with each other; hold <kbd>Alt</kbd> to place freely and press
   <kbd>Esc</kbd> to cancel a drag.
 - Choose **Lock layout** when you're done, so nothing moves by accident.
+- For pixel-perfect placement, click a widget (or a panel's header) and use the **arrow keys**: 1 pixel per press,
+  or <kbd>Shift</kbd> + arrow to jump to the next grid line. The same keys work on Studio's map.
 - Made a mistake? **Undo layout change** in the tray, or <kbd>Ctrl</kbd> + <kbd>Z</kbd> in Studio.
-- For exact positions, open **Open Studio… → Design**. Click an item on the map or in the list, then type its
-  X / Y / W / H. Scroll on the map to zoom, drag empty space to pan, and use the expand button for a full-width map.
+- For exact positions, open **Open Studio… → Design**. Click an item on the canvas or in **Layers**, then type its
+  X / Y / W / H. Scroll on the canvas to zoom, drag empty space to pan, or use the zoom and monitor buttons in the toolbar.
 
 ### 3. Panels
 - **Add panel…** in the tray creates a new panel. Right-click its empty space → **Panel → Edit source folders…**
@@ -155,15 +158,15 @@ hidden while it runs (they come back when you exit). **Right-click the tray icon
   **Background** to put your own photo behind just that widget.
 
 ### 5. Make it yours
-- **Studio → Design → Gallery**: click any theme to use it. **Use my wallpaper** creates themes from your
+- **Studio → Themes**: click any theme to use it. **Use my wallpaper** creates themes from your
   wallpaper's colours.
-- **Editor**: fine-tune colours, glass, borders, shadows, images, textures, fonts and spacing. Open one section at a
+- **Studio → Design → Editor** (in the inspector on the right): fine-tune colours, glass, borders, shadows, images, textures, fonts and spacing. Open one section at a
   time; the others show a short summary. Everything previews instantly and applies to your desktop as you go.
-- **Style one panel differently**: select it on the map and click **Style this panel** (or right-click the panel →
+- **Style one panel differently**: select it on the canvas and click **Style it** (or right-click the panel →
   **Theme → Customize this panel…**). **Use global theme** puts it back.
-- **Smart themes**: follow Windows light/dark mode, or switch between a day and a night theme on a schedule.
+- **Smart themes** (next to Editor): follow Windows light/dark mode, or switch between a day and a night theme on a schedule.
 - **Share a look**: **Save as theme…**, then **Export pack…** gives you a `.deskflow-theme` file with its images
-  included. Friends open it with **Import…** in the gallery.
+  included. Friends open it with **Import…** on the Themes page.
 
 ### 6. Keep it tidy automatically
 **Studio → Auto-sort** moves new files into the right place for you, for example screenshots into
@@ -171,10 +174,10 @@ Pictures\Screenshots or installers into Downloads\Installers. Rules never overwr
 
 ### 7. Handy extras
 - <kbd>Win</kbd> + <kbd>D</kbd> brings the whole layer forward; click back into an app and it drops behind again.
-- **Peek hotkey**: set one in **Studio → Design → Setup** to pop your panels and widgets above every window and back.
-- **Monitor profiles** (Setup tab) remember a layout per monitor setup, so docking your laptop restores your
+- **Peek hotkey**: set one in **Studio → Design → Settings** to pop your panels and widgets above every window and back.
+- **Monitor profiles** (Settings tab) remember a layout per monitor setup, so docking your laptop restores your
   two-screen arrangement by itself.
-- **Export layout… / Import layout…** (Setup tab) moves your whole setup to another PC.
+- **Export layout… / Import layout…** (Settings tab) moves your whole setup to another PC.
 
 ## Requirements
 
