@@ -107,6 +107,16 @@ or right-click to edit, export or delete it.</sub>
 a fixed live preview above the theme editor's sections (Colours open, the rest summarised).</sub>
 </div>
 
+**Addons: widgets made by anyone**
+- Install widgets other people made by double-clicking a `.deskflow-addon` file.
+- **Safe addons** are just layout and data: crypto prices, news headlines, countdowns, server status and
+  more. They can't run programs or touch your files, they only read from websites you approve, and they always
+  match your theme.
+- **Code plugins** can do more. DeskFlow warns you clearly before installing one, and asks again if its code ever
+  changes.
+- Want to make one? Run `npx deskflow-addon new my-widget` and see **[Making DeskFlow addons](ADDONS.md)**.
+  Most addons are a single JSON file.
+
 **Plays nicely with Windows**
 - Stays under your apps, comes forward with <kbd>Win</kbd> + <kbd>D</kbd>.
 - Works with Wallpaper Engine and survives Explorer restarts.
@@ -172,7 +182,13 @@ hidden while it runs (they come back when you exit). **Right-click the tray icon
 **Studio → Auto-sort** moves new files into the right place for you, for example screenshots into
 Pictures\Screenshots or installers into Downloads\Installers. Rules never overwrite a file.
 
-### 7. Handy extras
+### 7. Addons
+- Double-click a `.deskflow-addon` file, or use **Studio → Addons → Install from file…**. DeskFlow shows what the
+  addon is and what it's allowed to do before anything is installed.
+- Click **Add to desktop** on its card, or pick it from the **Add** menu. Right-click the widget for its settings.
+- Turn an addon off or remove it any time in **Studio → Addons**.
+
+### 8. Handy extras
 - <kbd>Win</kbd> + <kbd>D</kbd> brings the whole layer forward; click back into an app and it drops behind again.
 - **Peek hotkey**: set one in **Studio → Design → Settings** to pop your panels and widgets above every window and back.
 - **Monitor profiles** (Settings tab) remember a layout per monitor setup, so docking your laptop restores your

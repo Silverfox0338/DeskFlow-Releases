@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A DeskFlow code plugin. Build and package:   npx deskflow-addon pack   (or try it: npx deskflow-addon install)
+    DeskFlowDir points at an installed DeskFlow (default per-user install) and only provides types to compile
+    against: DeskFlow.dll is NOT copied into the plugin (Private=false), the running app supplies it.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <DeskFlowDir Condition="'$(DeskFlowDir)' == ''">$(LOCALAPPDATA)\Programs\DeskFlow</DeskFlowDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DeskFlow">
+      <HintPath>$(DeskFlowDir)\DeskFlow.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

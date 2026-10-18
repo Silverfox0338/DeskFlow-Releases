@@ -1,0 +1,47 @@
+{
+  "id": "deskflow.examples.crypto-price",
+  "name": "Crypto prices",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "Bitcoin and Ethereum prices in US dollars with the 24-hour change, from CoinGecko.",
+  "glyph": "E8C7",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "permissions": { "web": [ "api.coingecko.com" ] },
+  "widget": {
+    "width": 240,
+    "sources": {
+      "price": {
+        "type": "web",
+        "every": 300,
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true"
+      }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 10,
+      "children": [
+        { "type": "text", "style": "caption", "text": "CRYPTO · USD" },
+        {
+          "type": "stack", "orientation": "horizontal", "gap": 10,
+          "children": [
+            { "type": "icon", "glyph": "E8C7", "size": 22, "color": "accent" },
+            { "type": "stack", "gap": 0, "children": [
+              { "type": "text", "style": "title", "text": "Bitcoin" },
+              { "type": "text", "style": "caption", "text": "{{price.bitcoin.usd_24h_change | number:2 | default:–}}% today" }
+            ] }
+          ]
+        },
+        { "type": "text", "style": "display", "size": 26, "text": "${{price.bitcoin.usd | number:0 | default:…}}" },
+        { "type": "divider" },
+        {
+          "type": "stack", "orientation": "horizontal", "gap": 10,
+          "children": [
+            { "type": "text", "style": "body", "text": "Ethereum" },
+            { "type": "text", "style": "body", "bold": true, "text": "${{price.ethereum.usd | number:0 | default:…}}" }
+          ]
+        }
+      ]
+    }
+  }
+}

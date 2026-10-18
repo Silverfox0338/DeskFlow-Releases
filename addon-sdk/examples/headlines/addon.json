@@ -1,0 +1,34 @@
+{
+  "id": "deskflow.examples.headlines",
+  "name": "Headlines",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "The latest BBC News headlines. Click one to read it.",
+  "glyph": "E789",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "permissions": { "web": [ "feeds.bbci.co.uk" ] },
+  "widget": {
+    "width": 300,
+    "sources": {
+      "news": { "type": "rss", "url": "https://feeds.bbci.co.uk/news/rss.xml", "count": 5, "every": 900 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 8,
+      "children": [
+        { "type": "text", "style": "caption", "text": "{{news.title | upper | default:HEADLINES}}" },
+        {
+          "type": "list", "items": "news.items", "max": 5, "gap": 8,
+          "item": {
+            "type": "stack", "gap": 1,
+            "children": [
+              { "type": "link", "text": "{{item.title}}", "url": "{{item.link}}" },
+              { "type": "text", "style": "caption", "text": "{{item.date | ago}}" }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

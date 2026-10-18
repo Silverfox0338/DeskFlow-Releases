@@ -1,0 +1,31 @@
+{
+  "id": "deskflow.examples.disk-space",
+  "name": "Disk space",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "How full your system drive is, at a glance.",
+  "glyph": "EDA2",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "widget": {
+    "width": 220,
+    "sources": {
+      "sys": { "type": "system", "every": 60 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 6,
+      "children": [
+        {
+          "type": "stack", "orientation": "horizontal", "gap": 8,
+          "children": [
+            { "type": "icon", "glyph": "EDA2", "size": 16, "color": "accent" },
+            { "type": "text", "style": "title", "text": "System drive" }
+          ]
+        },
+        { "type": "progress", "value": "{{sys.disk}}", "height": 8 },
+        { "type": "text", "style": "caption", "text": "{{sys.diskFree | bytes}} free of {{sys.diskTotal | bytes}} · {{sys.disk | percent}} used" }
+      ]
+    }
+  }
+}

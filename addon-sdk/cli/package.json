@@ -1,0 +1,21 @@
+{
+  "name": "deskflow-addon",
+  "version": "1.0.0",
+  "description": "Create, check, package and install addons for DeskFlow, the Windows desktop layer.",
+  "keywords": ["deskflow", "addon", "widget", "windows", "desktop", "cli"],
+  "author": "Silverfox0338",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "homepage": "https://github.com/Silverfox0338/DeskFlow-Releases/blob/main/ADDONS.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Silverfox0338/DeskFlow-Releases.git",
+    "directory": "addon-sdk/cli"
+  },
+  "bin": {
+    "deskflow-addon": "bin/deskflow-addon.js"
+  },
+  "files": ["bin/", "README.md", "LICENSE.md"],
+  "engines": {
+    "node": ">=18"
+  }
+}

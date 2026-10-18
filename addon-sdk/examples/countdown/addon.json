@@ -1,0 +1,29 @@
+{
+  "id": "deskflow.examples.countdown",
+  "name": "Countdown",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "Counts down to a date you choose: a holiday, a launch, a trip.",
+  "glyph": "E916",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "settings": [
+    { "key": "title", "label": "What are you counting down to?", "type": "text", "default": "New Year" },
+    { "key": "date", "label": "Date (YYYY-MM-DD)", "type": "text", "default": "2027-01-01" }
+  ],
+  "widget": {
+    "width": 220,
+    "sources": {
+      "now": { "type": "time", "every": 60 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 2,
+      "children": [
+        { "type": "text", "style": "caption", "text": "{{settings.title | upper}}" },
+        { "type": "text", "style": "display", "text": "{{settings.date | days}}" },
+        { "type": "text", "style": "body", "color": "subtle", "text": "days to go · {{settings.date | date:dddd d MMMM}}" }
+      ]
+    }
+  }
+}

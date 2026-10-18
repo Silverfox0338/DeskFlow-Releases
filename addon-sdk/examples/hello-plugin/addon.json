@@ -1,0 +1,11 @@
+{
+  "id": "deskflow.examples.hello-plugin",
+  "name": "Hello plugin",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "An example code plugin written in C#.",
+  "glyph": "E8E1",
+  "minDeskFlow": "0.6.0",
+  "kind": "plugin",
+  "assembly": "HelloPlugin.dll"
+}

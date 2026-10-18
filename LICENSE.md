@@ -1,6 +1,6 @@
 # DeskFlow End User License Agreement (EULA)
 
-**Version 1.1 | October 17, 2026**
+**Version 1.2 | October 18, 2026**
 
 Copyright © 2026 Silverfox0338. All rights reserved.
 
@@ -28,6 +28,8 @@ You may:
 - Use DeskFlow for personal, educational, professional, or commercial purposes.
 - Customize your desktop using the Software's built-in features.
 - Create, save, export, import, and share themes or layouts created using DeskFlow.
+- Install and use addons, including widget addons and code plugins created by other people.
+- Create and share addons for DeskFlow as described in section 4A.
 - Make reasonable backup copies of the installer for your own use.
 - Share links to the official DeskFlow download page.
 
@@ -45,6 +47,8 @@ Unless expressly authorized in writing by the Developer or permitted by applicab
 6. Distribute modified versions or derivative works of the Software.
 7. Use DeskFlow's name, branding, or original assets to impersonate the official project.
 
+Creating and sharing addons as described in section 4A is permitted and is not considered modifying the Software or creating a derivative work.
+
 Nothing in this Agreement restricts rights that cannot lawfully be excluded, including applicable exceptions permitting interoperability, security research, or reverse engineering.
 
 ## 4. User Files and Customizations
@@ -58,6 +62,18 @@ The Developer does not claim ownership of content you create or organize using D
 You are responsible for maintaining backups of important files and reviewing file-management operations before performing them.
 
 Themes, theme packs, and layouts you share must contain only images and other content you have the right to share. The Developer is not responsible for themes, theme packs, or layouts created or distributed by other people. Only install theme packs from sources you trust.
+
+## 4A. Addons
+
+DeskFlow can install addons: widget addons and code plugins created by third parties, not by the Developer.
+
+**Addons are not made, reviewed, endorsed, or supported by the Developer.** You choose whether to install an addon, and you do so at your own risk. Only install addons from people you trust.
+
+Widget addons are limited by DeskFlow to showing information and reading from websites you approve. Code plugins are programs: they run with the same access to your computer as you do, and could read, change, or send your files and data. DeskFlow warns you before installing a code plugin, but the Developer cannot verify what any addon does.
+
+To the maximum extent permitted by applicable law, the Developer is not responsible for addons or for any loss, damage, data loss, security issue, or malfunction caused by an addon. Problems with an addon should be reported to its author. Addons may have their own terms set by their authors.
+
+**Creating addons.** You may create addons using DeskFlow's documented addon format, its public plugin interfaces (such as `IWidget`), the addon guide, the example addons, and the `deskflow-addon` tool, and you may share or sell your addons. You may reference `DeskFlow.dll` to build a code plugin, but you may not change, patch, modify, or redistribute `DeskFlow.dll` or any other part of the Software; your plugin must work with DeskFlow as it is distributed. You may copy and adapt the example addons as a starting point. Addons you create belong to you; creating an addon this way does not violate section 3. You may not include DeskFlow itself, its installer, or its files in an addon, present your addon as official, or create addons designed to harm users, collect their data without consent, or circumvent DeskFlow's addon safety checks.
 
 ## 5. Privacy and Network Access
 
@@ -78,6 +94,8 @@ External service providers may process technical information, including IP addre
 DeskFlow does not include analytics, telemetry, or advertising, and does not send your files, settings, or usage data to the Developer.
 
 If you use the Clipboard history widget, your clipboard history stays on your computer. It is kept in memory only, and only items you choose to pin are saved, in your local settings.
+
+These privacy statements describe DeskFlow itself. Addons created by other people, especially code plugins, are not covered by them; their authors are responsible for what their addons access or send.
 
 ## 6. Updates and Changes
 

@@ -2,6 +2,29 @@
 
 Every DeskFlow release and what changed. The newest release is at the top.
 
+## v0.6.0
+
+Addons: widgets made by anyone.
+
+- **Install addons** by double-clicking a `.deskflow-addon` file (or Studio → **Addons** → Install from file…).
+  Before anything is installed you see what the addon is, who made it and exactly what it may do.
+- **Safe addons** are layout and data only. They can show text, big numbers, icons, images, progress bars and
+  lists from the time, system stats, battery, network, now playing, web APIs, RSS feeds, or a file you pick.
+  They can't run programs or change files, they only read from websites you approve (HTTPS), and they always use
+  your theme.
+- **Code plugins** (C#) can do anything. DeskFlow shows a clear warning first, remembers the exact code you
+  trusted and asks again if it changes. A plugin that breaks shows "stopped working" instead of crashing
+  DeskFlow, and if DeskFlow ever crashes while plugins start, they're turned off (safe mode).
+- **New Addons page** in Studio: turn addons on or off, add their widgets, or remove them. Addon widgets also
+  appear in the Add menu.
+- **Theme packs** (`.deskflow-theme`) now install with a double-click too.
+- **License 1.2**: a new section on addons. They're made by other people, not reviewed or supported by
+  DeskFlow's developer, and installed at your own risk. It also explicitly lets anyone create and share (or sell)
+  addons, and clarifies that DeskFlow's privacy promises cover DeskFlow itself, not third-party addons.
+- **Make your own**: `npx deskflow-addon new my-widget` starts one (nothing to install but Node.js); `install`,
+  `validate` and `pack` do the rest. The guide ([ADDONS.md](ADDONS.md)) and five examples (Countdown, Crypto prices,
+  Headlines, Disk space and a C# Hello plugin) are in `addon-sdk`.
+
 ## v0.5.1
 
 Lower memory use.
