@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.cpu-graph",
+  "name": "CPU graph",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "The last two minutes of CPU and memory as live charts. Shows the history source and line and bar charts.",
+  "glyph": "E9D2",
+  "minDeskFlow": "0.6.4",
+  "kind": "widget",
+  "widget": {
+    "width": 280,
+    "sources": {
+      "sys": { "type": "system", "every": 2 },
+      "cpu": { "type": "history", "of": "sys.cpu", "size": 60, "every": 2 },
+      "ram": { "type": "history", "of": "sys.ram", "size": 60, "every": 2 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 4,
+      "children": [
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 8,
+          "children": [
+            { "type": "text", "style": "caption", "text": "CPU" },
+            { "type": "text", "style": "caption", "color": "accent", "text": "{{sys.cpu | percent}}" }
+          ]
+        },
+        { "type": "chart", "kind": "line", "values": "cpu.values", "min": 0, "max": 1, "width": 244, "height": 46 },
+        { "type": "text", "style": "caption", "text": "Peak {{cpu.max | percent}} · average {{cpu.avg | percent}}" },
+        { "type": "spacer", "height": 4 },
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 8,
+          "children": [
+            { "type": "text", "style": "caption", "text": "MEMORY" },
+            { "type": "text", "style": "caption", "color": "accent", "text": "{{sys.ram | percent}}" }
+          ]
+        },
+        { "type": "chart", "kind": "bar", "values": "ram.values", "min": 0, "max": 1, "width": 244, "height": 30, "color": "subtle" }
+      ]
+    }
+  }
+}

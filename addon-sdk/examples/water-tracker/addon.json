@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.water-tracker",
+  "name": "Water tracker",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "Count glasses of water towards a daily goal with buttons. Shows buttons that change settings, and a ring chart.",
+  "glyph": "EB42",
+  "minDeskFlow": "0.6.4",
+  "kind": "widget",
+  "settings": [
+    { "key": "goal", "label": "Glasses per day", "type": "number", "default": "8" },
+    { "key": "glasses", "label": "Glasses so far", "type": "number", "default": "0" }
+  ],
+  "widget": {
+    "width": 270,
+    "layout": {
+      "type": "stack",
+      "orientation": "horizontal",
+      "gap": 14,
+      "children": [
+        { "type": "chart", "kind": "ring", "value": "{{= settings.glasses / settings.goal}}", "max": 1, "width": 64, "label": "{{settings.glasses}}/{{settings.goal}}" },
+        {
+          "type": "stack",
+          "gap": 6,
+          "children": [
+            { "type": "text", "style": "title", "text": "Water" },
+            {
+              "type": "text",
+              "style": "caption",
+              "text": "{{= settings.glasses >= settings.goal ? 'Goal reached, nice!' : concat(settings.goal - settings.glasses, ' more to go') }}"
+            },
+            {
+              "type": "stack",
+              "orientation": "horizontal",
+              "gap": 6,
+              "children": [
+                { "type": "button", "glyph": "E710", "text": "Glass", "action": "stepSetting", "setting": "glasses", "step": 1, "min": 0, "max": 50, "tooltip": "Add a glass" },
+                { "type": "button", "glyph": "E738", "action": "stepSetting", "setting": "glasses", "step": -1, "min": 0, "tooltip": "Remove a glass" },
+                { "type": "button", "glyph": "E72C", "action": "setSetting", "setting": "glasses", "value": "0", "tooltip": "Start a new day" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

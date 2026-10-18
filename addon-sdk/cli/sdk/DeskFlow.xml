@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DeskFlow</name>
+    </assembly>
+    <members>
+        <member name="T:DeskFlow.Core.WidgetSettings">
+            <summary>A widget's saved settings. Keep your own values in <see cref="P:DeskFlow.Core.WidgetSettings.Options"/> (or <see cref="P:DeskFlow.Core.WidgetSettings.Items"/>) and call <see cref="P:DeskFlow.Widgets.WidgetContext.Save"/>.</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.Id">
+            <summary>A unique id for this widget instance.</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.Type">
+            <summary>The widget type id, e.g. "addon:com.you.plugin/clock".</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.X">
+            <summary>Position on the desktop (managed by DeskFlow).</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.Y">
+            <summary>Position on the desktop (managed by DeskFlow).</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.Options">
+            <summary>Free-form string options for your widget. Saved with the layout.</summary>
+        </member>
+        <member name="P:DeskFlow.Core.WidgetSettings.Items">
+            <summary>A free-form string list for your widget. Saved with the layout.</summary>
+        </member>
+        <member name="M:DeskFlow.Core.WidgetSettings.GetBool(System.String,System.Boolean)">
+            <summary>Reads a "true"/"false" option.</summary>
+        </member>
+        <member name="M:DeskFlow.Core.WidgetSettings.SetBool(System.String,System.Boolean)">
+            <summary>Writes a "true"/"false" option.</summary>
+        </member>
+        <member name="T:DeskFlow.Widgets.IWidget">
+            <summary>
+            A desktop widget. Add a public parameterless constructor and a [Widget("id", "Name")] attribute; DeskFlow
+            finds every such class in your plugin and hosts it in a themed glass card.
+            </summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.IWidget.View">
+            <summary>The widget's content. DeskFlow puts it in a glass card and applies the theme's widget scale.</summary>
+        </member>
+        <member name="M:DeskFlow.Widgets.IWidget.Initialize(DeskFlow.Widgets.WidgetContext)">
+            <summary>Called once after construction, before the window is shown.</summary>
+        </member>
+        <member name="M:DeskFlow.Widgets.IWidget.CreateSettingsMenuItems">
+            <summary>Items for the "Settings" submenu of the widget's right-click menu (may be empty).</summary>
+        </member>
+        <member name="M:DeskFlow.Widgets.IWidget.OnVisibilityChanged(System.Boolean)">
+            <summary>
+            Called when the widget becomes hidden (fully covered by an app, or the PC is locked) or visible again.
+            Pause timers and live data while hidden; refresh when shown.
+            </summary>
+        </member>
+        <member name="T:DeskFlow.Widgets.WidgetContext">
+            <summary>Everything a widget may use from the host.</summary>
+        </member>
+        <member name="M:DeskFlow.Widgets.WidgetContext.#ctor(DeskFlow.Core.WidgetSettings,System.Windows.Window,System.Action)">
+            <summary>Created by DeskFlow.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetContext.Settings">
+            <summary>The widget's saved settings. Call <see cref="P:DeskFlow.Widgets.WidgetContext.Save"/> after changing them.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetContext.Host">
+            <summary>The window hosting the widget (for dialogs; don't move or close it).</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetContext.Save">
+            <summary>Schedules a (debounced) save of the settings.</summary>
+        </member>
+        <member name="T:DeskFlow.Widgets.WidgetAttribute">
+            <summary>Marks an <see cref="T:DeskFlow.Widgets.IWidget"/> class: <c>[Widget("clock", "Analog clock", Description = "…", Glyph = "")]</c>.</summary>
+        </member>
+        <member name="M:DeskFlow.Widgets.WidgetAttribute.#ctor(System.String,System.String,System.Int32)">
+            <param name="typeId">A short id, unique inside your plugin.</param>
+            <param name="displayName">The name shown in the Add menu and Studio.</param>
+            <param name="order">Sort order among your plugin's widgets.</param>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetAttribute.Id">
+            <summary>The type id.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetAttribute.DisplayName">
+            <summary>The display name.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetAttribute.Order">
+            <summary>The sort order.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetAttribute.Description">
+            <summary>One-line description shown in Studio's widget gallery.</summary>
+        </member>
+        <member name="P:DeskFlow.Widgets.WidgetAttribute.Glyph">
+            <summary>Segoe Fluent Icons glyph for the gallery card.</summary>
+        </member>
+        <member name="T:DeskFlow.Widgets.ThemeKeys">
+            <summary>
+            Theme resource names: <c>text.SetResourceReference(TextBlock.ForegroundProperty, ThemeKeys.Text)</c> makes a widget
+            follow the user's theme automatically.
+            </summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.Text">
+            <summary>Normal text (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.SubtleText">
+            <summary>Secondary text: captions, hints (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.Accent">
+            <summary>The accent colour (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.AccentSoft">
+            <summary>A soft, translucent accent for backgrounds (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.Track">
+            <summary>Tracks of bars and dividers (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.Hover">
+            <summary>Hover highlight (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.InputBackground">
+            <summary>Background of text boxes and inputs (Brush).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.Font">
+            <summary>The theme's font (FontFamily).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.IconFont">
+            <summary>Segoe Fluent Icons (FontFamily), for glyphs like "".</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.TitleFontSize">
+            <summary>Title text size (double).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.LabelFontSize">
+            <summary>Label text size (double).</summary>
+        </member>
+        <member name="F:DeskFlow.Widgets.ThemeKeys.WidgetScale">
+            <summary>The theme's widget scale, 0.8–1.5 (double). DeskFlow already applies it to your view.</summary>
+        </member>
+    </members>
+</doc>

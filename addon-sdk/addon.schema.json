@@ -1,0 +1,698 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "title": "DeskFlow addon (addon.json)",
+  "description": "A DeskFlow addon: a safe widget (layout + data, no code) or a C# code plugin. Guide: https://github.com/Silverfox0338/DeskFlow-Releases/blob/main/ADDONS.md",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "kind"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{2,63}$",
+      "description": "3–64 lowercase letters, digits, dots or dashes, e.g. \"com.yourname.countdown\". Keep it the same across versions: installing a newer version replaces the old one."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Shown on the install prompt, in Studio and in the Add menu."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v?\\d+(\\.\\d+){0,3}$",
+      "description": "Like 1.2.0."
+    },
+    "author": {
+      "type": "string",
+      "description": "Shown on the install prompt and in Studio."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 400,
+      "description": "One or two sentences, shown on the install prompt and in Studio."
+    },
+    "glyph": {
+      "type": "string",
+      "description": "A Segoe Fluent Icons code like \"E916\" (https://learn.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font)."
+    },
+    "minDeskFlow": {
+      "type": "string",
+      "pattern": "^v?\\d+(\\.\\d+){0,3}$",
+      "default": "0.6.0",
+      "description": "The lowest DeskFlow version your addon works with. Set it to the version you built and tested with."
+    },
+    "kind": {
+      "enum": [
+        "widget",
+        "plugin"
+      ],
+      "description": "\"widget\" = safe addon (layout and data only, no code). \"plugin\" = C# code with full access to the PC (DeskFlow warns the user)."
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "web": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
+          },
+          "description": "Website hosts your addon reads from (HTTPS GET only), e.g. [\"api.coingecko.com\"]. The user approves them when installing."
+        }
+      }
+    },
+    "settings": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "$ref": "#/$defs/setting"
+      },
+      "description": "Options the user can change in the widget's right-click Settings menu. Use them as {{settings.key}}."
+    },
+    "widget": {
+      "$ref": "#/$defs/widget"
+    },
+    "assembly": {
+      "type": "string",
+      "pattern": "^[^\\\\/]+\\.dll$",
+      "description": "Code plugins: your DLL's file name, e.g. \"MyPlugin.dll\"."
+    },
+    "updates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url"
+      ],
+      "description": "Where DeskFlow checks for new versions (DeskFlow 0.6.5+): an https URL of a latest.json like {\"version\": \"1.1.0\", \"download\": \"https://…/my-addon-1.1.0.deskflow-addon\", \"changelog\": \"…\"}. \"npx deskflow-addon pack\" writes it. The user sees the host when installing and reviews every update.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://",
+          "description": "https:// address of your latest.json."
+        }
+      }
+    },
+    "publicKey": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9+/=]{80,200}$",
+      "description": "Your ECDSA P-256 public key from \"npx deskflow-addon keygen\" (DeskFlow 0.6.5+). Once people install your addon with it, every update must be signed with your key (\"pack --sign\")."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "plugin"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "assembly"
+        ],
+        "not": {
+          "required": [
+            "widget"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "widget"
+        ],
+        "not": {
+          "required": [
+            "assembly"
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "elementType": {
+      "enum": [
+        "stack",
+        "grid",
+        "text",
+        "icon",
+        "image",
+        "progress",
+        "list",
+        "spacer",
+        "divider",
+        "link",
+        "chart",
+        "button"
+      ]
+    },
+    "sourceType": {
+      "enum": [
+        "time",
+        "system",
+        "battery",
+        "network",
+        "media",
+        "web",
+        "rss",
+        "file",
+        "history"
+      ]
+    },
+    "settingType": {
+      "enum": [
+        "text",
+        "number",
+        "toggle",
+        "choice",
+        "file"
+      ]
+    },
+    "filterName": {
+      "description": "Template filters: {{path | filter:arg}}. number:N, round, percent:N, bytes, upper, lower, trim:N, default:x, date:FORMAT, until, ago, days.",
+      "enum": [
+        "number",
+        "round",
+        "percent",
+        "bytes",
+        "upper",
+        "lower",
+        "trim",
+        "default",
+        "date",
+        "until",
+        "ago",
+        "days"
+      ]
+    },
+    "template": {
+      "type": "string",
+      "description": "Text with {{source.path | filter:arg}} placeholders, e.g. \"{{price.bitcoin.usd | number:2}}\", or {{= expression}} (DeskFlow 0.6.4+), e.g. \"{{= sys.cpu > 0.8 ? 'Busy' : 'OK'}}\". Filters: number:N, round, percent:N, bytes, upper, lower, trim:N, default:x, date:FORMAT, until, ago, days."
+    },
+    "setting": {
+      "type": "object",
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,31}$",
+          "description": "Used as {{settings.key}}."
+        },
+        "label": {
+          "type": "string",
+          "description": "Shown in the Settings menu."
+        },
+        "type": {
+          "$ref": "#/$defs/settingType",
+          "default": "text",
+          "description": "text, number, toggle, choice or file (the user picks a file for a \"file\" source)."
+        },
+        "default": {
+          "type": "string",
+          "description": "The starting value (always a string: \"5\", \"true\")."
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "For \"choice\": the options."
+        }
+      },
+      "if": {
+        "properties": {
+          "type": {
+            "const": "choice"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "required": [
+          "options"
+        ]
+      }
+    },
+    "widget": {
+      "type": "object",
+      "required": [
+        "layout"
+      ],
+      "additionalProperties": false,
+      "description": "Safe addons: the widget's data sources and layout.",
+      "properties": {
+        "width": {
+          "type": "number",
+          "minimum": 80,
+          "maximum": 640,
+          "description": "Width in pixels (80–640). Height follows the content."
+        },
+        "sources": {
+          "type": "object",
+          "maxProperties": 10,
+          "propertyNames": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "Named live data. Use it in the layout as {{name.field}}. At most 10; all pause while the widget is hidden."
+        },
+        "layout": {
+          "$ref": "#/$defs/element"
+        },
+        "computed": {
+          "type": "object",
+          "maxProperties": 30,
+          "propertyNames": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "description": "An expression (DeskFlow 0.6.4+), e.g. \"now.unix / 86400\". Earlier names are available as calc.name."
+          },
+          "description": "Named values worked out from your data with expressions (DeskFlow 0.6.4+). Use them as {{calc.name}}. Evaluated in order whenever data changes."
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/sourceType",
+          "description": "time (time, date, hour…; every ≥ 1 s), system (cpu, ram, disk…; ≥ 2 s), battery (≥ 10 s), network (online, down, up; ≥ 2 s), media (playing, title, artist; ≥ 2 s), web (JSON from an approved https URL; ≥ 60 s), rss (title, items[]; ≥ 300 s), file (text of a file the user picks; ≥ 5 s), history (the last values of another value, for charts; ≥ 1 s; 0.6.4+)."
+        },
+        "every": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Refresh interval in seconds (each type has its own minimum)."
+        },
+        "url": {
+          "$ref": "#/$defs/template",
+          "description": "web and rss: an https:// URL on a host listed in permissions.web. May use {{settings.x}}."
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "description": "rss: how many items (1–20)."
+        },
+        "setting": {
+          "type": "string",
+          "description": "file: the key of a setting of type \"file\" (the user picks the file; addons never choose paths)."
+        },
+        "of": {
+          "type": "string",
+          "description": "history: the value to record, e.g. \"sys.cpu\" (or an expression starting with =)."
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 240,
+          "description": "history: how many values to keep (default 30)."
+        }
+      }
+    },
+    "element": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/elementType",
+          "description": "stack, grid, text, icon, image, progress, list, spacer, divider, link; chart and button need DeskFlow 0.6.4."
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right",
+            "stretch"
+          ]
+        },
+        "margin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 40
+        },
+        "visible": {
+          "$ref": "#/$defs/template",
+          "description": "Hidden when this renders empty, \"false\" or \"0\"."
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/element"
+          },
+          "description": "stack and grid: the elements inside."
+        },
+        "orientation": {
+          "enum": [
+            "vertical",
+            "horizontal"
+          ],
+          "description": "stack: direction (default vertical)."
+        },
+        "gap": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 40,
+          "description": "stack, grid and list: space between children."
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "description": "grid: number of columns."
+        },
+        "text": {
+          "$ref": "#/$defs/template",
+          "description": "text and link: what to show."
+        },
+        "style": {
+          "enum": [
+            "display",
+            "title",
+            "body",
+            "caption"
+          ],
+          "description": "text: display (big number), title, body (default) or caption (small, subtle)."
+        },
+        "size": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 72,
+          "description": "text, icon and link: font size."
+        },
+        "bold": {
+          "type": "boolean"
+        },
+        "wrap": {
+          "type": "boolean",
+          "description": "text: wrap long text."
+        },
+        "maxLines": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "description": "text: at most this many lines."
+        },
+        "color": {
+          "enum": [
+            "normal",
+            "subtle",
+            "accent"
+          ],
+          "description": "A colour from the user's theme."
+        },
+        "glyph": {
+          "$ref": "#/$defs/template",
+          "description": "icon: a Segoe Fluent Icons code like \"E916\" (or a template)."
+        },
+        "src": {
+          "$ref": "#/$defs/template",
+          "description": "image: a file in your addon (images/logo.png) or an https:// URL on an approved host."
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "fit": {
+          "enum": [
+            "fit",
+            "fill"
+          ],
+          "description": "image: fit inside (default) or fill and crop."
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 300,
+          "description": "image: rounded corners."
+        },
+        "value": {
+          "description": "progress and ring charts: a number or a template like \"{{sys.cpu}}\". button: the value for setSetting, or the text for copy.",
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "max": {
+          "type": "number",
+          "description": "progress: the value that fills the bar (default 1). chart: the top of the scale. list: at most this many items."
+        },
+        "items": {
+          "type": "string",
+          "description": "list: the path of an array, e.g. \"news.items\"."
+        },
+        "item": {
+          "$ref": "#/$defs/element",
+          "description": "list: the layout repeated for each entry (use {{item.…}})."
+        },
+        "url": {
+          "$ref": "#/$defs/template",
+          "description": "link: an https:// page, opened in the browser when clicked."
+        },
+        "min": {
+          "type": "number",
+          "description": "chart: the bottom of the scale. button (stepSetting): the lowest value."
+        },
+        "kind": {
+          "enum": [
+            "sparkline",
+            "line",
+            "bar",
+            "ring"
+          ],
+          "description": "chart: sparkline (default), line (with a soft fill), bar, or ring (one value, like a progress donut)."
+        },
+        "values": {
+          "type": "string",
+          "description": "chart: the path of a list of numbers, e.g. \"cpuHistory.values\"."
+        },
+        "label": {
+          "$ref": "#/$defs/template",
+          "description": "chart (ring): text in the middle."
+        },
+        "action": {
+          "$ref": "#/$defs/buttonAction"
+        },
+        "setting": {
+          "type": "string",
+          "description": "button: the setting a setSetting / cycleSetting / stepSetting action changes."
+        },
+        "step": {
+          "type": "number",
+          "description": "button (stepSetting): how much to add (default 1; negative to subtract)."
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "button: shown when the pointer rests on it."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "list"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "items",
+              "item"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "link"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "url"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "chart"
+              },
+              "kind": {
+                "const": "ring"
+              }
+            },
+            "required": [
+              "type",
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "chart"
+              },
+              "kind": {
+                "enum": [
+                  "sparkline",
+                  "line",
+                  "bar"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "values"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "button"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "action"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "setSetting",
+                  "cycleSetting",
+                  "stepSetting"
+                ]
+              }
+            },
+            "required": [
+              "action"
+            ]
+          },
+          "then": {
+            "required": [
+              "setting"
+            ]
+          }
+        }
+      ]
+    },
+    "buttonAction": {
+      "description": "open (an https page), refresh, setSetting / cycleSetting / stepSetting (change one of your settings), copy (text to the clipboard), media.playPause / media.next / media.previous.",
+      "enum": [
+        "open",
+        "refresh",
+        "setSetting",
+        "cycleSetting",
+        "stepSetting",
+        "copy",
+        "media.playPause",
+        "media.next",
+        "media.previous"
+      ]
+    },
+    "functionName": {
+      "description": "Functions for {{= expressions}} and computed: maths (min, max, abs, round, floor, ceil, sqrt, pow, sin, cos, tan, pi, clamp, mod), dates as Unix seconds (now, today, date, addDays, addHours, daysBetween, year, month, day, hour, minute, weekday), text (concat, len, upper, lower, trim, pad, substr, contains, startsWith, format, text, number) and pick(index, a, b, …).",
+      "enum": [
+        "min",
+        "max",
+        "abs",
+        "round",
+        "floor",
+        "ceil",
+        "sqrt",
+        "pow",
+        "sin",
+        "cos",
+        "tan",
+        "pi",
+        "clamp",
+        "mod",
+        "now",
+        "today",
+        "date",
+        "addDays",
+        "addHours",
+        "daysBetween",
+        "year",
+        "month",
+        "day",
+        "hour",
+        "minute",
+        "weekday",
+        "concat",
+        "len",
+        "upper",
+        "lower",
+        "trim",
+        "pad",
+        "substr",
+        "contains",
+        "startsWith",
+        "format",
+        "text",
+        "number",
+        "pick"
+      ]
+    }
+  }
+}

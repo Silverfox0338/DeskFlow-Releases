@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.now-playing",
+  "name": "Now playing",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "The song that's playing, with previous, play/pause and next buttons. Shows the media source and media buttons.",
+  "glyph": "E8D6",
+  "minDeskFlow": "0.6.4",
+  "kind": "widget",
+  "widget": {
+    "width": 280,
+    "sources": {
+      "media": { "type": "media", "every": 2 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 3,
+      "children": [
+        { "type": "text", "style": "caption", "text": "{{= media.playing ? 'NOW PLAYING' : 'PAUSED'}}" },
+        { "type": "text", "style": "title", "text": "{{media.title | default:Nothing playing}}" },
+        { "type": "text", "style": "body", "color": "subtle", "text": "{{media.artist}}", "visible": "{{media.artist}}" },
+        { "type": "spacer", "height": 4 },
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 6,
+          "children": [
+            { "type": "button", "glyph": "E892", "action": "media.previous", "tooltip": "Previous" },
+            { "type": "button", "text": "{{= media.playing ? 'Pause' : 'Play'}}", "action": "media.playPause" },
+            { "type": "button", "glyph": "E893", "action": "media.next", "tooltip": "Next" }
+          ]
+        }
+      ]
+    }
+  }
+}

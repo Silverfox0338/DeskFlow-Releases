@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.pomodoro",
+  "name": "Pomodoro",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "A focus and break timer. Click it to start or pause. The example from the plugin tutorial.",
+  "glyph": "E916",
+  "minDeskFlow": "0.6.0",
+  "kind": "plugin",
+  "assembly": "Pomodoro.dll"
+}

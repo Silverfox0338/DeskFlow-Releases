@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.moon-phase",
+  "name": "Moon phase",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "Today's moon phase, how much of it is lit and the next full moon. Worked out with expressions, no code and no internet.",
+  "glyph": "E708",
+  "minDeskFlow": "0.6.4",
+  "kind": "widget",
+  "widget": {
+    "width": 280,
+    "sources": {
+      "now": { "type": "time", "every": 600 }
+    },
+    "computed": {
+      "phase": "mod((now.unix - 947182440) / 2551442.861, 1)",
+      "age": "round(calc.phase * 29.53, 1)",
+      "lit": "(1 - cos(2 * pi() * calc.phase)) / 2",
+      "index": "mod(round(calc.phase * 8), 8)",
+      "name": "pick(calc.index, 'New moon', 'Waxing crescent', 'First quarter', 'Waxing gibbous', 'Full moon', 'Waning gibbous', 'Last quarter', 'Waning crescent')",
+      "nextFull": "addDays(today(), mod(14.765 - calc.age, 29.53))"
+    },
+    "layout": {
+      "type": "stack",
+      "orientation": "horizontal",
+      "gap": 14,
+      "children": [
+        { "type": "chart", "kind": "ring", "value": "{{calc.lit}}", "max": 1, "width": 64, "label": "{{= round(calc.lit * 100)}}%" },
+        {
+          "type": "stack",
+          "gap": 2,
+          "children": [
+            { "type": "text", "style": "caption", "text": "MOON" },
+            { "type": "text", "style": "title", "text": "{{calc.name}}" },
+            { "type": "text", "style": "body", "color": "subtle", "text": "Day {{calc.age}} of 29.5" },
+            { "type": "text", "style": "caption", "text": "Next full moon {{calc.nextFull | date:ddd d MMM}}" }
+          ]
+        }
+      ]
+    }
+  }
+}

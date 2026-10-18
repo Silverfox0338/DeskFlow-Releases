@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.analog-clock",
+  "name": "Analog clock",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "An analog clock with a gently animated second hand, drawn in your theme's colours. An example C# plugin.",
+  "glyph": "E823",
+  "minDeskFlow": "0.6.0",
+  "kind": "plugin",
+  "assembly": "AnalogClock.dll"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.sticky-note",
+  "name": "Sticky note",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "A note with a title, a mood, a progress bar and the lines of a text file you pick. Uses every kind of setting.",
+  "glyph": "E70B",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "settings": [
+    { "key": "title", "label": "Title", "type": "text", "default": "Today" },
+    { "key": "mood", "label": "Mood", "type": "choice", "options": ["Focused", "Relaxed", "Busy", "On a break"], "default": "Focused" },
+    { "key": "progress", "label": "Progress (0 to 100)", "type": "number", "default": "40" },
+    { "key": "showDate", "label": "Show the date", "type": "toggle", "default": "true" },
+    { "key": "notes", "label": "Notes file", "type": "file" }
+  ],
+  "widget": {
+    "width": 260,
+    "sources": {
+      "now": { "type": "time", "every": 60 },
+      "notes": { "type": "file", "setting": "notes", "every": 10 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 4,
+      "children": [
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 8,
+          "children": [
+            { "type": "icon", "glyph": "E70B", "color": "accent", "size": 16 },
+            { "type": "text", "style": "title", "text": "{{settings.title}}" }
+          ]
+        },
+        { "type": "text", "style": "caption", "text": "{{now.longDate}}", "visible": "{{settings.showDate}}" },
+        { "type": "text", "style": "body", "text": "Mood: {{settings.mood}}" },
+        { "type": "progress", "value": "{{settings.progress}}", "max": 100, "margin": 2 },
+        { "type": "text", "style": "caption", "text": "{{settings.progress | round}}% done" },
+        { "type": "divider" },
+        {
+          "type": "list",
+          "items": "notes.lines",
+          "max": 6,
+          "gap": 2,
+          "item": { "type": "text", "style": "body", "text": "• {{item | trim:60}}", "visible": "{{item}}" }
+        },
+        { "type": "text", "style": "caption", "text": "{{notes.name | default:Pick a text file in Settings → Notes file}}" }
+      ]
+    }
+  }
+}

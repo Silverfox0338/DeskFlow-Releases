@@ -58,7 +58,7 @@ background, and below it a compact dock with its own glowing theme.</sub>
 
 **Widgets**
 - **Weather** with a 3-day forecast, **Calendar**, **Clock**, **Notes** that save as you type,
-  **Now Playing** with media controls, **System stats**, **Network & battery** with a live speed graph,
+  **Now Playing** with media controls, **System stats** (CPU, memory, GPU, network and any drives you pick), **Network & battery** with a live speed graph,
   **Clipboard history** (private and in-memory only), and a **Quick launch** bar for your favourite apps.
 - Browse and add them from the widget gallery in DeskFlow Studio.
 - Widgets pause automatically when they're hidden behind your apps — just like Wallpaper Engine does —
@@ -115,7 +115,7 @@ a fixed live preview above the theme editor's sections (Colours open, the rest s
 - **Code plugins** can do more. DeskFlow warns you clearly before installing one, and asks again if its code ever
   changes.
 - Want to make one? Run `npx deskflow-addon new my-widget` and see **[Making DeskFlow addons](ADDONS.md)**.
-  Most addons are a single JSON file.
+  Most addons are a single JSON file, and `npx deskflow-addon dev` reloads it on your desktop every time you save.
 
 **Plays nicely with Windows**
 - Stays under your apps, comes forward with <kbd>Win</kbd> + <kbd>D</kbd>.
@@ -169,7 +169,7 @@ hidden while it runs (they come back when you exit). **Right-click the tray icon
 
 ### 5. Make it yours
 - **Studio → Themes**: click any theme to use it. **Use my wallpaper** creates themes from your
-  wallpaper's colours.
+  wallpaper's colours, including a Wallpaper Engine wallpaper: DeskFlow takes a snapshot of what it's showing.
 - **Studio → Design → Editor** (in the inspector on the right): fine-tune colours, glass, borders, shadows, images, textures, fonts and spacing. Open one section at a
   time; the others show a short summary. Everything previews instantly and applies to your desktop as you go.
 - **Style one panel differently**: select it on the canvas and click **Style it** (or right-click the panel →

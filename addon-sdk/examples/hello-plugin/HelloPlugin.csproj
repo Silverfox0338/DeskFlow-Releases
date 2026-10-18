@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <!--
-    A DeskFlow code plugin. Build and package:   npx deskflow-addon pack   (or try it: npx deskflow-addon install)
-    DeskFlowDir points at an installed DeskFlow (default per-user install) and only provides types to compile
-    against: DeskFlow.dll is NOT copied into the plugin (Private=false), the running app supplies it.
+    A DeskFlow code plugin. Live development: npx deskflow-addon dev   ·   Package: npx deskflow-addon pack
+    Compiles against the DeskFlow plugin SDK (a reference-only DeskFlow.dll): lib\DeskFlow.dll if you copied the
+    example out, the SDK in this repo otherwise, or an installed DeskFlow as a last resort. DeskFlow supplies the
+    real DeskFlow.dll at run time, so it's never copied into the build (Private=false).
   -->
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -11,12 +12,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <DeskFlowDir Condition="'$(DeskFlowDir)' == ''">$(LOCALAPPDATA)\Programs\DeskFlow</DeskFlowDir>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == '' and Exists('lib\DeskFlow.dll')">lib\DeskFlow.dll</DeskFlowRef>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == '' and Exists('..\..\cli\sdk\DeskFlow.dll')">..\..\cli\sdk\DeskFlow.dll</DeskFlowRef>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == ''">$(LOCALAPPDATA)\Programs\DeskFlow\DeskFlow.dll</DeskFlowRef>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="DeskFlow">
-      <HintPath>$(DeskFlowDir)\DeskFlow.dll</HintPath>
+      <HintPath>$(DeskFlowRef)</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

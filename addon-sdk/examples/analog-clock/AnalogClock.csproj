@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A DeskFlow code plugin. Live development: npx deskflow-addon dev   ·   Package: npx deskflow-addon pack
+    Compiles against the DeskFlow plugin SDK (a reference-only DeskFlow.dll): lib\DeskFlow.dll if you copied the
+    example out, the SDK in this repo otherwise, or an installed DeskFlow as a last resort. DeskFlow supplies the
+    real DeskFlow.dll at run time, so it's never copied into the build (Private=false).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == '' and Exists('lib\DeskFlow.dll')">lib\DeskFlow.dll</DeskFlowRef>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == '' and Exists('..\..\cli\sdk\DeskFlow.dll')">..\..\cli\sdk\DeskFlow.dll</DeskFlowRef>
+    <DeskFlowRef Condition="'$(DeskFlowRef)' == ''">$(LOCALAPPDATA)\Programs\DeskFlow\DeskFlow.dll</DeskFlowRef>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DeskFlow">
+      <HintPath>$(DeskFlowRef)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

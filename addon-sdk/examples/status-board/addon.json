@@ -1,0 +1,92 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Silverfox0338/DeskFlow-Releases/main/addon-sdk/addon.schema.json",
+  "id": "deskflow.examples.status-board",
+  "name": "Status board",
+  "version": "1.0.0",
+  "author": "Silverfox0338",
+  "description": "CPU, memory, disk, battery and network at a glance. Combines four data sources in one widget.",
+  "glyph": "E9D9",
+  "minDeskFlow": "0.6.0",
+  "kind": "widget",
+  "widget": {
+    "width": 300,
+    "sources": {
+      "now": { "type": "time", "every": 30 },
+      "sys": { "type": "system", "every": 3 },
+      "bat": { "type": "battery", "every": 30 },
+      "net": { "type": "network", "every": 3 }
+    },
+    "layout": {
+      "type": "stack",
+      "gap": 8,
+      "children": [
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 8,
+          "children": [
+            { "type": "icon", "glyph": "E9D9", "color": "accent", "size": 16 },
+            { "type": "text", "style": "title", "text": "Status" },
+            { "type": "text", "style": "caption", "text": "{{now.weekday}} {{now.time}}" }
+          ]
+        },
+        {
+          "type": "grid",
+          "columns": 2,
+          "gap": 10,
+          "children": [
+            {
+              "type": "stack",
+              "gap": 2,
+              "children": [
+                { "type": "text", "style": "caption", "text": "CPU" },
+                { "type": "text", "style": "title", "text": "{{sys.cpu | percent}}" },
+                { "type": "progress", "value": "{{sys.cpu}}" }
+              ]
+            },
+            {
+              "type": "stack",
+              "gap": 2,
+              "children": [
+                { "type": "text", "style": "caption", "text": "MEMORY" },
+                { "type": "text", "style": "title", "text": "{{sys.ram | percent}}" },
+                { "type": "progress", "value": "{{sys.ram}}" },
+                { "type": "text", "style": "caption", "text": "{{sys.ramUsed | bytes}} of {{sys.ramTotal | bytes}}" }
+              ]
+            },
+            {
+              "type": "stack",
+              "gap": 2,
+              "children": [
+                { "type": "text", "style": "caption", "text": "DISK" },
+                { "type": "text", "style": "title", "text": "{{sys.diskFree | bytes}} free" },
+                { "type": "progress", "value": "{{sys.disk}}" }
+              ]
+            },
+            {
+              "type": "stack",
+              "gap": 2,
+              "visible": "{{bat.present}}",
+              "children": [
+                { "type": "text", "style": "caption", "text": "BATTERY" },
+                { "type": "text", "style": "title", "text": "{{bat.percent | percent}}" },
+                { "type": "progress", "value": "{{bat.percent}}" },
+                { "type": "text", "style": "caption", "text": "Charging", "visible": "{{bat.charging}}" }
+              ]
+            }
+          ]
+        },
+        { "type": "divider" },
+        {
+          "type": "stack",
+          "orientation": "horizontal",
+          "gap": 8,
+          "children": [
+            { "type": "icon", "glyph": "E701", "color": "subtle", "size": 14 },
+            { "type": "text", "style": "caption", "text": "{{net.name}} · ↓ {{net.down | bytes}}/s · ↑ {{net.up | bytes}}/s" }
+          ]
+        }
+      ]
+    }
+  }
+}

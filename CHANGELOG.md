@@ -2,6 +2,94 @@
 
 Every DeskFlow release and what changed. The newest release is at the top.
 
+## v0.6.6
+
+Wallpaper Engine and more stats.
+
+- **Your Wallpaper Engine wallpaper counts.** While Wallpaper Engine runs, "Use my wallpaper" (theme colours), Studio's
+  map and the addon previewer use what it's actually showing: DeskFlow takes a snapshot of the live wallpaper, in full
+  size, instead of the Windows wallpaper behind it. You can turn this off in Studio → Themes.
+- **System stats, your way.** Right-click the System stats widget → Settings to choose what it shows: CPU, memory,
+  GPU usage, GPU memory, network speed, and as many drives as you like. Hide anything you don't need. GPU stats are only
+  read while they're shown and the widget is visible.
+
+## v0.6.5
+
+Addon updates.
+
+- **Check for updates** in Studio → Addons finds new versions of addons whose authors offer them. You can also let
+  DeskFlow check once a day (off unless you turn it on). Nothing installs without you.
+- **See what changes before updating:** the changelog, new or dropped websites, a switch to code, and changed plugin
+  code, which you have to trust again.
+- **Signed addons.** Authors can sign their addons. Once you install a signed addon, DeskFlow only accepts updates
+  signed by the same author, even when you double-click an update file, so nobody else can slip in a changed version.
+- **Restore previous version.** DeskFlow keeps the last two versions of each addon; one click puts one back, with what
+  you had approved for it.
+- **For addon makers:** `npx deskflow-addon keygen`, `pack --sign` and an automatic `latest.json`
+  ([guide](ADDONS.md#8a-addon-updates-and-signing-deskflow-065)).
+
+## v0.6.4
+
+Safe addons can do much more, still without code.
+
+- **Expressions.** `{{= …}}` calculates: maths, comparisons, `a ? b : c`, dates and text functions, for example
+  `{{= sys.cpu > 0.8 ? 'Busy' : 'Fine'}}`. They can't loop or reach anything outside your addon's data.
+- **Computed values.** Name calculations once in `computed` and use them anywhere as `{{calc.name}}`.
+- **Charts.** A new `chart` element draws sparklines, line and bar charts, and ring (donut) charts in your theme's
+  colours. The new `history` source keeps the last values of anything (CPU, a price…) to chart.
+- **Buttons.** A new `button` element can open a web page, refresh, change one of the addon's settings (set, cycle
+  or step a number), copy text or control music. Buttons can't run programs or touch files.
+- **Four new examples:** Moon phase (all calculated, no internet), Water tracker (buttons), CPU graph (history and
+  charts) and Now playing (media buttons).
+- **Fixed:** whole-number values such as `{{now.hour}}`, `{{now.unix}}` and `{{bat.minutesLeft}}` showed nothing.
+
+## v0.6.3
+
+Better tools for addon makers.
+
+- **Autocomplete for addon.json.** A published JSON schema makes VS Code (and other editors) complete every field,
+  element and source, explain them on hover and underline mistakes. New addons include it.
+- **Plugin SDK.** C# plugins compile against a small reference `DeskFlow.dll` with just the plugin API and its
+  documentation, so you get IntelliSense and don't need DeskFlow installed to build. New: `ThemeKeys`, the names of
+  the theme resources (`ThemeKeys.Text`, `ThemeKeys.Accent`, …).
+- **Smarter checks.** `npx deskflow-addon validate` now also catches unclosed `{{`, unknown filters, images that don't
+  exist and plugin projects that would ship `DeskFlow.dll`. DeskFlow reports template mistakes on the Developer page
+  too. New `npx deskflow-addon doctor` checks Node.js, .NET, DeskFlow and developer mode.
+- **Four new examples** (Sticky note, Status board, Analog clock, Pomodoro) and a step-by-step
+  [plugin tutorial](addon-sdk/PLUGIN-TUTORIAL.md).
+
+## v0.6.2
+
+More developer tools.
+
+- **Previewer.** `npx deskflow-addon dev` now opens your addon in its own window instead of your desktop. Switch
+  themes, backgrounds and widths, hide it, simulate going offline or an error, then **Add to desktop** when it's
+  ready. It reloads with every save. Also on Studio → Developer → **Preview**.
+- **Sandbox.** Studio → Developer → Tools → **Start sandbox** runs a second, throwaway DeskFlow with a copy of your
+  addons and theme. Your own desktop hides while it runs and comes back when it closes. A plugin that crashes the
+  sandbox can't take your desktop down.
+- **Safe vs Code, clearer.** Studio → Addons now lists safe addons and code plugins separately, and code plugins
+  are marked "full access" everywhere, including a red banner on their install prompt.
+- **Live log** (Developer → Log), a **performance overlay** (Developer → Tools: CPU, memory and windows, live),
+  **Copy debug info** for bug reports, and a **Debug** tab in the Design inspector that shows the selected item's
+  settings and the theme values it sees. All of these only appear in developer mode.
+
+## v0.6.1
+
+Developer mode: make addons faster.
+
+- **Live reload.** Run `npx deskflow-addon dev` in your addon's folder and DeskFlow loads it straight from there.
+  Every time you save, the widget on your desktop updates, usually in under half a second. C# plugins are rebuilt
+  and swapped in without restarting DeskFlow. A broken file or a failed build keeps the last working version running.
+- **See why a widget fails.** Your terminal and Studio's new **Developer** page show what happens inside each addon:
+  a `{{typo}}` that matches no source, a request to a site that isn't approved, a download that failed (with the
+  HTTP status), how long each data source takes, and plugin errors with their stack trace.
+- **Clearer error cards.** A widget that fails now says why ("Web source 'price' failed: HTTP 404 from …") instead
+  of just "stopped working". In developer mode it has a **Details** link to the Developer page.
+- **Developer mode** is a switch in Studio → Addons. It's off unless you turn it on, and a linked plugin only runs
+  while it's on.
+- **deskflow-addon 1.1.0** adds the `dev` command. New addons from `npx deskflow-addon new` point you to it.
+
 ## v0.6.0
 
 Addons: widgets made by anyone.
